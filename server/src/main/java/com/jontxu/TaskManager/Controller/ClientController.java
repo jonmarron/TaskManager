@@ -9,17 +9,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("clients")
+@CrossOrigin(origins = "*")
 public class ClientController {
-    ClientService clientService;
-
-    @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
-
     @GetMapping
     public List<Client> getAllClients(){
         return clientService.getAllClients();
+    }
+
+    ClientService clientService;
+    @Autowired
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
     }
     @PostMapping
     public Client addClient(@RequestBody Client client){

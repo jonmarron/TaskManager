@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("projects")
+@CrossOrigin(origins = "*")
 public class ProjectController {
     ProjectService projectService;
 
@@ -16,7 +17,6 @@ public class ProjectController {
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
     }
-
     @GetMapping
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();

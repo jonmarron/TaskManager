@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material'
 function App() {
     function createData(name, calories, fat, carbs, protein) {
         return { name, calories, fat, carbs, protein };
     }
+    const [projects, setProjects] = useState([])
 
     const rows = [
         createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
@@ -13,6 +14,19 @@ function App() {
         createData('Cupcake', 305, 3.7, 67, 4.3),
         createData('Gingerbread', 356, 16.0, 49, 3.9),
     ];
+
+    const getSavedSlides = async () => {
+        const response = await fetch('http://localhost:8080/projects')
+        const data = await response.json()
+        console.log("test")
+        console.log(data)
+        setProjects(data)
+    }
+
+    useEffect(() => {
+        getSavedSlides()
+        console.log(projects)
+    }, [])
   return (
     <>
         <TableContainer component={Paper}>
@@ -27,18 +41,18 @@ function App() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {projects.map((project) => (
                         <TableRow
-                            key={row.name}
+                            key={project.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {row.name}
+                                {project.name}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{project.status}</TableCell>
+                            <TableCell align="right">{project.type}</TableCell>
+                            <TableCell align="right">{project.status}</TableCell>
+                            <TableCell align="right">{project.client.name}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
