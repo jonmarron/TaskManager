@@ -24,7 +24,7 @@ public class Project {
             generator = "project_id_sequence"
     )
     private long id;
-    @OneToOne
+    @ManyToOne
     private Client client;
     private String name;
     private ProjectType type;
