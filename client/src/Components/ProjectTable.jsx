@@ -11,38 +11,48 @@ const ProjectTable = ({projects}) => {
         return array.join('');
     }
     
+    const formatDate = date =>{
+        return date.split('-').reverse().join('-');
+    
+    }
+    
   return (
-    <div className="table-container">
-           <table className='table'>
-               
-                    <tr>
-                        <th className='tableHeader'>Project Name</th>
-                        <th className='tableHeader'>Status</th>
-                        <th className='tableHeader'>Type</th>
-                        <th className='tableHeader'>Briefing</th>
-                        <th className='tableHeader'>Deadline</th>
-                        <th className='tableHeader'>Preview</th>
-                        
-                    </tr>
-                
-                    {projects.map((project) => {
-                        return (
-                            <tr key={project.id}>
-                                <td className="content">{project.name}</td>
-                                <td className="content">{processEnum(project.status)}</td>
-                                <td className="content">{processEnum(project.type)}</td>
-                                <td className="content">{project.briefing}</td>
-                                <td className="content">{project.deadline}</td>
-                                <td className="content">
-                                    <a href={project.previewLink} target="_blank">
-                                    <FontAwesomeIcon icon={faEye} />
-                                    </a>
-                                </td>
-                            </tr>
-                        )
-                    })}
-            </table>
-        </div>
+    <div>
+        <h1>Projects</h1>
+        <div className="table-container">
+               <table className='table'>
+        
+                        <tr>
+                            <th className='tableHeader'> Name</th>
+                            <th className='tableHeader'>Client</th>
+                            <th className='tableHeader'>Status</th>
+                            <th className='tableHeader'>Type</th>
+                            <th className='tableHeader'>Briefing</th>
+                            <th className='tableHeader'>Deadline</th>
+                            <th className='tableHeader'><FontAwesomeIcon icon={faEye} /></th>
+        
+                        </tr>
+        
+                        {projects.map((project) => {
+                            return (
+                                <tr key={project.id}>
+                                    <td>{project.name}</td>
+                                    <td>{project.client.name}</td>
+                                    <td>{processEnum(project.status)}</td>
+                                    <td>{processEnum(project.type)}</td>
+                                    <td className="long-text">{project.briefing}</td>
+                                    <td>{formatDate(project.deadline)}</td>
+                                    <td>
+                                        <a href={project.previewLink} target="_blank">
+                                        <FontAwesomeIcon icon={faEye}/>
+                                        </a>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                </table>
+            </div>
+    </div>
     )
 }
 

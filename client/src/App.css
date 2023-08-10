@@ -1,14 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  --background-color: #151719;
+  --accent-color: #EF5840;
+  background-color: var(--background-color);
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
 #root {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
 a {
-  color: #EF5840;
+  color: var(--accent-color);
   background-color: transparent;
   text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .3rem;
 }
 
 /* NAVBAR start */
@@ -17,7 +36,7 @@ a {
   display: grid;
   grid-template-rows: [row1-start]2fr [row2-start]8fr [row3-start]1fr;
   grid-template-columns: [only]1fr;
-  width: 250px;
+  width: 300px;
   top: 0;
   left:0;
   padding: 30px 30px;
@@ -25,10 +44,11 @@ a {
   height: 100vh;
   border-radius: 0 20px 20px 0;
   box-shadow: 5px 0 10px #00000090;
-  transition: .7s ease-in-out;
+  transition: .7s ease-in-out transform;
+  background-color: var(--background-color);
 }
 .navBar.hidden{
-  transform: translateX(-240px);
+  transform: translateX(-225px);
 }
 .navBar.hidden button {
   width: 50%;
@@ -72,7 +92,7 @@ nav ul li button{
 }
 
 nav ul li button::before{
-  color: #EF5840;
+  color: var(--accent-color);
   display: inline-block;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -100,35 +120,52 @@ button#create::before{
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
   content: "\f004";
-  color: #EF5840;
+  color: var(--accent-color);
 }
 /* NAVBAR end */
 
 /* TABLE start */
 .table-container {
-  padding:0 20px;
-  background: #ffffff10;
+  padding:10px 20px 20px 20px;
   border-radius: .7rem;
+  background:#ffffff10 ;
+  max-width: 1200px;
+}
+.table-container.clients {
+  width: 500px;
 }
 table {
+  width: 100%;
   border-collapse: collapse;
-  border-radius: .7rem;
   overflow: hidden;
   padding:0 20px;
+  border-radius: 10px;
 }
 
-th, td {
-  background: #ffffff10;
-  padding: 20px;
+td , th{
+  padding:15px 20px;
+  text-align: left;
+  vertical-align: text-top;
 }
 th{
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid var(--accent-color);
+  vertical-align: bottom;
 }
-td:first-child, th:first-child{
-  text-align: left;
+td:first-child{
+  text-transform: uppercase;
 }
-td , th{
-  text-align: right;
+th:not(.long-text), td:not(.long-text) {
+  max-width: 200px;
+}
+td.long-text, th.long-text {
+  width: 250px;
+}
+tr:not(:first-child){
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+tr:not(:first-child):hover{
+  background-color: #00000020;
 }
 
 /* TABLE end */
