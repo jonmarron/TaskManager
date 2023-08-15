@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -24,13 +23,12 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         Client client1 = Client.builder().name("DataWave Innovations").registrationDate(LocalDate.now().minusYears(1).plusDays(3).plusMonths(4)).build();
         Client client2 = Client.builder().name("NexusTech Solutions").registrationDate(LocalDate.now().minusYears(3).minusDays(50)).build();
         Client client3 = Client.builder().name("InfraTech Insights").registrationDate(LocalDate.now().minusYears(5).plusDays(200)).build();
 
-        String briefing1= "Paragraphs\n" +
+        String briefing1 = "Paragraphs\n" +
                 "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh viverra non semper suscipit posuere a pede.";
         String briefing2 = "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi euismod in pharetra a ultricies in diam. Sed arcu. Cras consequat.";
         String briefing3 = "Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. ";

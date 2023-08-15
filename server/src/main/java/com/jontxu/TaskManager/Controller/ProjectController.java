@@ -21,8 +21,13 @@ public class ProjectController {
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
     }
+    @GetMapping("{id}")
+    public Project getOneById(@PathVariable long id) throws ElementNotFoundException{
+        return projectService.getOneById(id).orElseThrow(ElementNotFoundException::new);
+    }
     @PostMapping
     public Project createProject(@RequestBody Project project) {
         return projectService.createProject(project);
     }
+
 }

@@ -5,6 +5,7 @@ import com.jontxu.TaskManager.model.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -15,7 +16,9 @@ public class ProjectService {
     }
 
     public List<Project> getAllProjects(){ return projectRepository.findAll();}
-
+    public Optional<Project> getOneById(long id){
+        return projectRepository.findById(id);
+    }
     public Project createProject(Project project){
         return projectRepository.save(project);
     }
