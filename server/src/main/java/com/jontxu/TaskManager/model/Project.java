@@ -32,4 +32,5 @@ public class Project {
     private LocalDate deadline;
     private Status status;
     private String previewLink;
+    private String uid;
 }

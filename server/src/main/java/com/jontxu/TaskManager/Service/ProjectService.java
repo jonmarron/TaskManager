@@ -10,9 +10,11 @@ import java.util.Optional;
 @Service
 public class ProjectService {
     private ProjectRepository projectRepository;
+    private ProjectUidGenerator projectUidGenerator;
 
-    public ProjectService(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository, ProjectUidGenerator projectUidGenerator) {
         this.projectRepository = projectRepository;
+        this.projectUidGenerator = projectUidGenerator;
     }
 
     public List<Project> getAllProjects(){ return projectRepository.findAll();}
@@ -20,6 +22,9 @@ public class ProjectService {
         return projectRepository.findById(id);
     }
     public Project createProject(Project project){
+        String uid = projectUidGenerator.generateUid(project);
+        project.setUid(uid);
         return projectRepository.save(project);
     }
+
 }
