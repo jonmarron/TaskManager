@@ -30,6 +30,7 @@ public class Project {
     private ProjectType type;
     private String briefing;
     private LocalDate deadline;
+    @Enumerated(EnumType.STRING)
     private Status status;
     private String previewLink;
     private String uid;

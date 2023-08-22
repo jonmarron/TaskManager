@@ -4,6 +4,7 @@ import com.jontxu.TaskManager.model.Client;
 import com.jontxu.TaskManager.model.ClientRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -19,6 +20,9 @@ public class ClientService {
     }
 
     public Client addClient(Client client){
+        client.setRegistrationDate(LocalDate.now());
         return clientRepository.save(client);
     }
+
+    public void deleteById(long id){ clientRepository.deleteById(id);}
 }

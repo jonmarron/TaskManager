@@ -1,4 +1,4 @@
-package com.jontxu.TaskManager.DataSample;
+package com.jontxu.TaskManager.runner;
 
 import com.jontxu.TaskManager.Service.ClientService;
 import com.jontxu.TaskManager.Service.ProjectService;
@@ -24,9 +24,9 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Client client1 = Client.builder().name("DataWave Innovations").registrationDate(LocalDate.now().minusYears(1).plusDays(3).plusMonths(4)).build();
-        Client client2 = Client.builder().name("NexusTech Solutions").registrationDate(LocalDate.now().minusYears(3).minusDays(50)).build();
-        Client client3 = Client.builder().name("InfraTech Insights").registrationDate(LocalDate.now().minusYears(5).plusDays(200)).build();
+        Client client1 = Client.builder().name("DataWave Innovations").build();
+        Client client2 = Client.builder().name("NexusTech Solutions").build();
+        Client client3 = Client.builder().name("InfraTech Insights").build();
 
         String briefing1 = "Paragraphs\n" +
                 "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh viverra non semper suscipit posuere a pede.";
