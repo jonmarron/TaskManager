@@ -30,9 +30,43 @@ h1 {
   letter-spacing: .3rem;
 }
 
+input, select, textarea, option {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: .5rem;
+  margin:10px 0 15px 0;
+}
+
+button.primary-btn {
+  cursor: pointer;
+  display: flex;
+  padding: 20px 30px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: var(--accent-color);
+  font-family: Inter;
+  color: var(--light-text);
+  font-size: .8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  border: 1px solid var(--accent-color);
+  border-radius: .3rem;
+  transition: .3s ease-in-out;
+}
+
+button.primary-btn::after{
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f061";
+  margin-left: 20px;
+}
+
 /* NAVBAR start */
 .navBar {
-  position:absolute;
+  position:fixed;
   display: grid;
   grid-template-rows: [row1-start]2fr [row2-start]8fr [row3-start]1fr;
   grid-template-columns: [only]1fr;
@@ -172,3 +206,15 @@ tr:not(:first-child):hover{
 }
 
 /* TABLE end */
+
+/* NEW PROJECT start */
+.createProject {
+  width: 20vw;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+

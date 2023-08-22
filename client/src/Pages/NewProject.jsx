@@ -57,7 +57,8 @@ const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => 
   }, [])
   
   return (
-    <div>
+    <div className='createProject'>
+      <h1>Create Project</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="project-name">Project Name</label>
         <input type="text" id='project-name'name='name' onChange={handleChange}/>
@@ -82,11 +83,11 @@ const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => 
           })}
         </select>
         <label htmlFor="briefing">Briefing:</label>
-        <textarea name="briefing" id="briefing" cols="30" rows="10" placeholder='Write your briefing here...' onChange={handleChange}></textarea>
+        <textarea name="briefing" id="briefing" cols="50" rows="10" placeholder='Write your briefing here...' onChange={handleChange}></textarea>
         
         <label htmlFor="deadline">Deadline:</label>
         <input type="text" name="deadline" id="deadline" placeholder='dd-mm-yyyy' onChange={handleDateChange}/>
-        <button>submit</button>
+        <button className='primary-btn'>submit</button>
 
       </form>
     </div>
