@@ -36,6 +36,19 @@ input, select, textarea, option {
   border: none;
   border-radius: .5rem;
   margin:10px 0 15px 0;
+  background-color: #ffffff10;
+}
+
+.error {
+  border: 2px solid rgb(228, 44, 44);;
+}
+
+textarea {
+  resize: vertical;
+}
+.error-message {
+  color: rgb(228, 44, 44);
+  font-size: .7rem;
 }
 
 button.primary-btn {
