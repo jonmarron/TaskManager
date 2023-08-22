@@ -1,12 +1,58 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faHeart, faBars} from '@fortawesome/free-solid-svg-icons'
+import {faBars} from '@fortawesome/free-solid-svg-icons'
 import ProjectOverview from './Pages/ProjectOverview';
 import {Link, Routes, Route} from 'react-router-dom'
-import DashBoard from './Pages/DashBoard';
+import ClientsOverview from './Pages/ClientsOverview';
+
+import { constants } from './Constants/Constants';
+import NewProject from './Pages/NewProject';
+
+const fetchProjects = async () => {
+    const response = await fetch(constants.baseURL + constants.projects,{
+      headers:{
+        'Authorization': `Basic ${btoa('admin:123')}`
+    }
+})
+const data = await response.json();
+return data;
+}
+
+const createProject = async (project) => {
+    return fetch(constants.baseURL + constants.projects, {
+        method: 'POST',
+        headers:{
+            "Content-Type": "application/json",
+            'Authorization': `Basic ${btoa('admin:123')}`
+        }, 
+        body: JSON.stringify(project)
+    }).then(res => res.json());
+}
+
+const getClients = async () => {
+    const response = await fetch(constants.baseURL + constants.clients, {
+        headers: {
+            'Authorization': `Basic ${btoa('admin:123')}`
+        }
+    })
+    const data = await response.json();
+    return data;
+}
+
+const getStatus = async () => {
+    const response = await fetch(constants.baseURL + constants.status)
+    const data = await response.json();
+    return data;
+}
+
+const getProjectTypes = async () => {
+    const response = await fetch(constants.baseURL + constants.projectTypes)
+    const data = await response.json();
+    return data;
+}
+
 
 function App() {
   const [navBarVisible, setNavBarVisible] = useState(true);
@@ -37,7 +83,13 @@ function App() {
                     </li>
                     
                     <li>
-                        <Link to="/projects">
+                        <Link to="/clients">
+                            <button id="clients">Clients</button>
+                        </Link>
+                    </li>
+                    
+                    <li>
+                        <Link to="/new-project">
                             <button id="create">New Project</button>
                         </Link>
                     </li>
@@ -50,8 +102,10 @@ function App() {
             </div>
         </div>
         <Routes>
-            <Route path="/" element={<DashBoard/>}/>
-            <Route path='/projects' element={<ProjectOverview/>}/>
+            <Route path="/" element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
+            <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
+            <Route path="/clients" element={<ClientsOverview getClients={getClients}/>}/>
+            <Route path="/new-project" element={<NewProject getClients={getClients} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
         </Routes>
     </>
   )
