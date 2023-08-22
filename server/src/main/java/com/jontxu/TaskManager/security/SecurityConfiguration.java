@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/clients").hasRole("ADMIN")
                         .requestMatchers("/db").permitAll()
                         .requestMatchers("/status").permitAll()
+                        .requestMatchers("/projectTypes").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
