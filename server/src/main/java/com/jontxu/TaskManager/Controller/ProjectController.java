@@ -2,6 +2,7 @@ package com.jontxu.TaskManager.Controller;
 
 import com.jontxu.TaskManager.Service.ProjectService;
 import com.jontxu.TaskManager.model.Project;
+import com.jontxu.TaskManager.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,13 @@ public class ProjectController {
 
     @PostMapping
     public Project createProject(@RequestBody Project project) {
+        project.setStatus(Status.IN_PROGRESS);
+        project.setPreviewLink("/");
         return projectService.createProject(project);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteById (@PathVariable long id) {
+        projectService.deleteById(id);
+    }
 }
