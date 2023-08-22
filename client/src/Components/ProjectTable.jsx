@@ -1,21 +1,11 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEye} from '@fortawesome/free-regular-svg-icons'
-
+import processEnum from '../Helpers/EnumProcessor'
+import formatDate from '../Helpers/DateFormatter'
 
 const ProjectTable = ({projects}) => {
 
-    const processEnum = word => {
-        let array =  word.replace('_', ' ').toLowerCase().split('');
-        array[0] = array[0].toUpperCase();
-        return array.join('');
-    }
-    
-    const formatDate = date =>{
-        return date.split('-').reverse().join('-');
-    
-    }
-    
   return (
     <div>
         <h1>Projects</h1>
@@ -33,7 +23,7 @@ const ProjectTable = ({projects}) => {
         
                         </tr>
         
-                        {projects.map((project) => {
+                        {projects && projects.map((project) => {
                             return (
                                 <tr key={project.id}>
                                     <td>{project.name}</td>

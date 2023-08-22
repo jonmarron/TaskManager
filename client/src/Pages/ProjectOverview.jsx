@@ -1,20 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import ProjectTable from '../Components/ProjectTable'
 
-const ProjectOverview = () => {
-  const [projects, setProjects] = useState([])
-
-  const getProjects = async () => {
-      const response = await fetch('http://localhost:8080/projects')
-      const data = await response.json()
-      console.log("test")
-      console.log(data)
-      setProjects(data)
-  }
+const ProjectOverview = ({fetchProjects}) => {
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-      getProjects()
-      console.log(projects)
+      fetchProjects()
+      .then(projects => {
+        setProjects(projects)
+      })
   }, [])
 
   return (

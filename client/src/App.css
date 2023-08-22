@@ -109,6 +109,9 @@ button#dashboard::before{
 button#create::before{
   font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f044";
 }
+button#clients::before{
+  font-family: "Font Awesome 5 Free"; font-weight: 400; content: "\f007";
+}
 
 .bottom-nav {
   grid-row-start: row3-start;

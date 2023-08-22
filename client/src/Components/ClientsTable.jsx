@@ -1,10 +1,8 @@
 import React from 'react'
+import formatDate from '../Helpers/DateFormatter'
 
 const ClientsTable = ({clients}) => {
-  const formatDate = date =>{
-    return date.split('-').reverse().join('-');
 
-}
   return (
       <div className='table-container clients'>
         <table className="table">
