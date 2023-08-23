@@ -25,7 +25,7 @@ public class Project {
     )
     private long id;
     @ManyToOne
-    private Client client;
+    private User user;
     private String name;
     private ProjectType type;
     private String briefing;

@@ -14,7 +14,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Client {
+@Table(name = "_users")
+public class User {
     @Id
     @SequenceGenerator(
             name = "client_id_sequence",
@@ -26,7 +27,7 @@ public class Client {
     )
     private long id;
     @Column(unique = true)
-    private String name;
+    private String username;
     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> authorities;
