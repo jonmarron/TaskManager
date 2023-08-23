@@ -2,9 +2,11 @@ package com.jontxu.TaskManager.Service;
 
 import com.jontxu.TaskManager.model.Project;
 import com.jontxu.TaskManager.model.ProjectRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -17,11 +19,21 @@ public class ProjectService {
         this.projectUidGenerator = projectUidGenerator;
     }
 
-    public List<Project> getAllProjects(){ return projectRepository.findAll();}
-    public Optional<Project> getOneById(long id){
+    public List<Project> getAllProjects(String sort, String direction) {
+        Sort sorting;
+        if (Objects.isNull(sort)) {
+            sorting = Sort.unsorted();
+        } else {
+            sorting = Sort.by(direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sort);
+        }
+        return projectRepository.findAll(sorting);
+    }
+
+    public Optional<Project> getOneById(long id) {
         return projectRepository.findById(id);
     }
-    public Project createProject(Project project){
+
+    public Project createProject(Project project) {
         String uid = projectUidGenerator.generateUid(project);
         project.setUid(uid);
         return projectRepository.save(project);

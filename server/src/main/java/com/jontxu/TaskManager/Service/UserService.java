@@ -8,10 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class ClientService {
+public class UserService {
     private UserRepository userRepository;
 
-    public ClientService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
