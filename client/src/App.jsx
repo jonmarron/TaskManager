@@ -10,6 +10,7 @@ import { Buffer } from 'buffer';
 
 import { constants } from './Constants/Constants';
 import NewProject from './Pages/NewProject';
+import Login from './Pages/Login';
 
 const fetchProjects = async (sortBy, sortDirection) => {
     const url = new URL(`${constants.baseURL + constants.projects}`);
@@ -82,7 +83,7 @@ function App() {
 
   return (
     <>
-        <div className={navBarVisible? "navBar": "navBar hidden"}>
+        <div className={`navBar ${navBarVisible? '':'hidden'}`}>
             <div className="logo">
                 <Link to="/"><img src="/LogoVertical.svg" alt="" /></Link>
                 <FontAwesomeIcon id="burger-menu" icon={faBars} size='lg' onClick={handleMenuSideBar}/>
@@ -121,7 +122,7 @@ function App() {
             </div>
         </div>
         <Routes>
-            <Route path="/" element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
+            <Route path="/" element={<Login/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
             <Route path="/new-project" element={<NewProject getUsers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
