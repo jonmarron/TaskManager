@@ -8,16 +8,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-public class UserPrincipal implements UserDetails {
+public class ClientPrincipal implements UserDetails {
     private final User user;
 
-    public UserPrincipal(User user) {
+    public ClientPrincipal(User user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<String> authorities = user.getRoles();
+        Set<String> authorities = user.getAuthorities();
         return AuthorityUtils.createAuthorityList(authorities.toArray(new String[authorities.size()]));
     }
 
@@ -28,7 +28,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getName();
     }
 
     @Override

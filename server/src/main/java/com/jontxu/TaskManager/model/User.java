@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -13,14 +14,21 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "_user")
-public class User {
+public class Client {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "client_id_sequence",
+            sequenceName = "client_id_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY,
+            generator = "client_id_sequence"
+    )
     private long id;
     @Column(unique = true)
-    private String username;
+    private String name;
     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> roles;
+    private Set<String> authorities;
+    private LocalDate registrationDate;
 }
