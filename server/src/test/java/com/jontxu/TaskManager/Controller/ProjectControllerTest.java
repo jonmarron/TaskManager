@@ -29,7 +29,7 @@ class ProjectControllerTest {
     void getAllProjects() throws Exception {
         mockMvc.perform(get(url).contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
-        verify(projectService).getAllProjects();
+        verify(projectService).getAllProjects("client", "asc");
     }
 
     @Test

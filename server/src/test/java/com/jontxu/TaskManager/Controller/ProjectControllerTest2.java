@@ -29,7 +29,7 @@ class ProjectControllerTest2 {
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(projectService).getAllProjects();
+        verify(projectService).getAllProjects("client", "asc");
     }
 
     @Test
