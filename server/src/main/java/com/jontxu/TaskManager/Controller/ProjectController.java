@@ -4,6 +4,7 @@ import com.jontxu.TaskManager.Service.ProjectService;
 import com.jontxu.TaskManager.model.Project;
 import com.jontxu.TaskManager.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("projects")
-@CrossOrigin("*")
 public class ProjectController {
     ProjectService projectService;
 
@@ -21,9 +21,8 @@ public class ProjectController {
     }
 
     @GetMapping
-    @Secured("ROLE_USER")
-    public List<Project> getAllProjects() {
-        return projectService.getAllProjects();
+    public List<Project> getAllProjects(@RequestParam(required = false) String sort, @RequestParam(required = false, defaultValue = "asc") String direction) {
+        return projectService.getAllProjects(sort, direction);
     }
 
     @GetMapping("{id}")

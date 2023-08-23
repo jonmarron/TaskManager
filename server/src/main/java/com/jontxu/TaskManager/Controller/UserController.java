@@ -1,6 +1,6 @@
 package com.jontxu.TaskManager.Controller;
 
-import com.jontxu.TaskManager.Service.ClientService;
+import com.jontxu.TaskManager.Service.UserService;
 import com.jontxu.TaskManager.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,24 +8,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("clients")
-public class ClientController {
-    ClientService clientService;
+@RequestMapping("users")
+public class UserController {
+    UserService userService;
 
     @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
     @GetMapping
     public List<User> getAllClients(){
-        return clientService.getAllClients();
+        return userService.getAllClients();
     }
     @PostMapping
     public User addClient(@RequestBody User user){
-        return clientService.addClient(user);
+        return userService.addClient(user);
     }
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable long id){
-        clientService.deleteById(id);
+        userService.deleteById(id);
     }
 }

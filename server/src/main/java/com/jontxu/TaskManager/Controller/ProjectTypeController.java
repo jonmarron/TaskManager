@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("projectTypes")
-@CrossOrigin("*")
 public class ProjectTypeController {
     @GetMapping
     public List<ProjectType> getAllTypes(){

@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("status")
-@CrossOrigin("*")
 public class StatusController {
     @GetMapping
     public List<Status> getAllStatus(){
