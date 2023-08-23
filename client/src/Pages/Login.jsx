@@ -8,7 +8,6 @@ const Login = ({handleLogin}) => {
     password:''
   })
 
-
   const handleChange = e => {
     setLoginCredentials({
       ...loginCredentials,
