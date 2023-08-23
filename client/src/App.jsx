@@ -12,19 +12,21 @@ import { constants } from './Constants/Constants';
 import NewProject from './Pages/NewProject';
 import Login from './Pages/Login';
 
-const handleLogin = (username, password) => {
+const handleLogin = async  (username, password) => {
     const headers = new Headers();
     const auth = Buffer.from(username + ':' + password).toString('base64');
     headers.set('Authorization', `Basic ${auth}`);
-    return  fetch(constants.baseURL + constants.login, {
+    const response = await fetch(constants.baseURL + constants.login, {
         headers: headers
     })
-    .then(response => response.text())
-    .then(jwt => {
-        localStorage.setItem('jwt', jwt)
-        console.log(jwt)
-    })
+
+    const jwt = await response.text()
+    localStorage.setItem('key', jwt)
+    
 }
+
+
+
 const fetchProjects = async (sortBy, sortDirection) => {
     const url = new URL(`${constants.baseURL + constants.projects}`);
     const params = new URLSearchParams();
