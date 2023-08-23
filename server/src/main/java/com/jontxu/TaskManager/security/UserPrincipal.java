@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-public class ClientPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private final User user;
 
-    public ClientPrincipal(User user) {
+    public UserPrincipal(User user) {
         this.user = user;
     }
 
@@ -28,7 +28,7 @@ public class ClientPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getUsername();
     }
 
     @Override
