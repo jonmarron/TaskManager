@@ -124,7 +124,7 @@ function App() {
             <Route path="/" element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
-            <Route path="/new-project" element={<NewProject getusers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
+            <Route path="/new-project" element={<NewProject getUsers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
         </Routes>
     </>
   )

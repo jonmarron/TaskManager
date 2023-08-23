@@ -4,14 +4,14 @@ import formatDate from '../Helpers/DateFormatter';
 import isDateValid from '../Helpers/DateValidator';
 import { useNavigate } from 'react-router-dom';
 
-const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => {
+const NewProject = ({getUsers, getStatus, getProjectTypes, createProject}) => {
   const navigate = useNavigate();
-  const [clients, setClients] = useState([]);
+  const [users, setUsers] = useState([]);
   const [status, setStatus] = useState([]);
   const [projectTypes, setProjectTypes] = useState([])
   const [formData, setFormData] = useState({
     name:'',
-    client:'',
+    user:'',
     type:'',
     briefing:'',
     deadline:''
@@ -34,10 +34,10 @@ const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => 
     })
   }
 
-  const handleClientSelect = e => {
+  const handleUserSelect = e => {
     setFormData({
       ...formData,
-      client:clients[e.target.value]
+      user:users[e.target.value]
     })
   }
   
@@ -48,8 +48,8 @@ const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => 
       errors.name = 'Name is required.';
     }
   
-    if (!formData.client) {
-      errors.client = 'Client is required.';
+    if (!formData.user) {
+      errors.user = 'Client is required.';
     }
   
     if (!formData.type) {
@@ -87,9 +87,9 @@ const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => 
   }
 
   useEffect(() => {
-    getClients()
-      .then(clients => {
-        setClients(clients);
+    getUsers()
+      .then(users => {
+        setUsers(users);
       })  
     getStatus()
       .then(statusRes => {
@@ -114,12 +114,12 @@ const NewProject = ({getClients, getStatus, getProjectTypes, createProject}) => 
 
 
         <label htmlFor="client">Client:</label>
-        {inputErrors.client && <span className='error-message'>{inputErrors.client}</span>}
-        <select name="client" id="client" className={inputErrors.client && 'error'} value= {formData.client} onChange={handleClientSelect}>
+        {inputErrors.user && <span className='error-message'>{inputErrors.user}</span>}
+        <select name="client" id="client" className={inputErrors.user && 'error'} value= {formData.username} onChange={handleUserSelect}>
           <option value="">Choose Client</option>
-          {clients.map((client, index) => {
+          {users.map((user, index) => {
             return (
-              <option value={index} key={client.id}>{client.name}</option> 
+              <option value={index} key={user.id}>{user.username}</option> 
               )
             })}
         </select>
