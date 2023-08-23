@@ -12,6 +12,19 @@ import { constants } from './Constants/Constants';
 import NewProject from './Pages/NewProject';
 import Login from './Pages/Login';
 
+const handleLogin = (username, password) => {
+    const headers = new Headers();
+    const auth = Buffer.from(username + ':' + password).toString('base64');
+    headers.set('Authorization', `Basic ${auth}`);
+    return  fetch(constants.baseURL + constants.login, {
+        headers: headers
+    })
+    .then(response => response.text())
+    .then(jwt => {
+        localStorage.setItem('jwt', jwt)
+        console.log(jwt)
+    })
+}
 const fetchProjects = async (sortBy, sortDirection) => {
     const url = new URL(`${constants.baseURL + constants.projects}`);
     const params = new URLSearchParams();
@@ -122,7 +135,7 @@ function App() {
             </div>
         </div>
         <Routes>
-            <Route path="/" element={<Login/>}/>
+            <Route path="/" element={<Login handleLogin={handleLogin}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
             <Route path="/new-project" element={<NewProject getUsers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
