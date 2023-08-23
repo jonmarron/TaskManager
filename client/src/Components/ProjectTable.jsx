@@ -4,7 +4,7 @@ import {faEye} from '@fortawesome/free-regular-svg-icons'
 import processEnum from '../Helpers/EnumProcessor'
 import formatDate from '../Helpers/DateFormatter'
 
-const ProjectTable = ({projects}) => {
+const ProjectTable = ({projects, sortBy, setSortBy, sortDirection, setSortDirection}) => {
 
   return (
     <div>
@@ -27,7 +27,7 @@ const ProjectTable = ({projects}) => {
                             return (
                                 <tr key={project.id}>
                                     <td>{project.name}</td>
-                                    <td>{project.client.name}</td>
+                                    <td>{project.user.username}</td>
                                     <td>{processEnum(project.status)}</td>
                                     <td>{processEnum(project.type)}</td>
                                     <td className="long-text">{project.briefing}</td>

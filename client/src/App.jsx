@@ -6,18 +6,37 @@ import {faBars} from '@fortawesome/free-solid-svg-icons'
 import ProjectOverview from './Pages/ProjectOverview';
 import {Link, Routes, Route} from 'react-router-dom'
 import ClientsOverview from './Pages/ClientsOverview';
+import { Buffer } from 'buffer';
 
 import { constants } from './Constants/Constants';
 import NewProject from './Pages/NewProject';
 
-const fetchProjects = async () => {
-    const response = await fetch(constants.baseURL + constants.projects,{
-      headers:{
-        'Authorization': `Basic ${btoa('admin:123')}`
+const fetchProjects = async (sortBy, sortDirection) => {
+    const url = new URL(`${constants.baseURL + constants.projects}`);
+    const params = new URLSearchParams();
+
+    if(sortBy) {
+        params.append('sort', sortBy)
     }
-})
-const data = await response.json();
-return data;
+    if(sortDirection){
+        params.append('direction', sortDirection)
+    }
+    url.search = params.toString();
+
+    const headers = new Headers();
+    
+    const auth = Buffer.from(
+        constants.username + ':' + constants.password
+    ).toString('base64');
+
+    headers.set('Authorization', 'Basic ' + auth);
+
+    const response = await fetch(url,{
+        headers: headers
+    })
+
+    const data = await response.json();
+    return data;
 }
 
 const createProject = async (project) => {
@@ -31,8 +50,8 @@ const createProject = async (project) => {
     }).then(res => res.json());
 }
 
-const getClients = async () => {
-    const response = await fetch(constants.baseURL + constants.clients, {
+const getUsers = async () => {
+    const response = await fetch(constants.baseURL + constants.users, {
         headers: {
             'Authorization': `Basic ${btoa('admin:123')}`
         }
@@ -83,8 +102,8 @@ function App() {
                     </li>
                     
                     <li>
-                        <Link to="/clients">
-                            <button id="clients">Clients</button>
+                        <Link to="/users">
+                            <button id="users">Clients</button>
                         </Link>
                     </li>
                     
@@ -104,8 +123,8 @@ function App() {
         <Routes>
             <Route path="/" element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
-            <Route path="/clients" element={<ClientsOverview getClients={getClients}/>}/>
-            <Route path="/new-project" element={<NewProject getClients={getClients} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
+            <Route path="/users" element={<ClientsOverview getusers={getUsers}/>}/>
+            <Route path="/new-project" element={<NewProject getusers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
         </Routes>
     </>
   )

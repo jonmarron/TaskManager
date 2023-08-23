@@ -3,9 +3,11 @@ import ProjectTable from '../Components/ProjectTable'
 
 const ProjectOverview = ({fetchProjects}) => {
   const [projects, setProjects] = useState([]);
+  const [sortBy, setSortBy] = useState('');
+  const [sortDirection, setSortDirection] = useState('');
 
   useEffect(() => {
-      fetchProjects()
+      fetchProjects(sortBy, sortDirection)
       .then(projects => {
         setProjects(projects)
       })
@@ -14,6 +16,10 @@ const ProjectOverview = ({fetchProjects}) => {
   return (
     <ProjectTable
       projects={projects}
+      sortBy={sortBy}
+      setSortBy={setSortBy}
+      sortDirection={sortDirection}
+      setSortDirection={setSortDirection}
     />    
   )
 }
