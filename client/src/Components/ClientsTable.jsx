@@ -13,7 +13,7 @@ const ClientsTable = ({clients}) => {
           {clients.map(client => {
             return (
               <tr key={client.id}>
-                <td>{client.name}</td>
+                <td>{client.username}</td>
                 <td>{formatDate(client.registrationDate)}</td>
               </tr>
             )

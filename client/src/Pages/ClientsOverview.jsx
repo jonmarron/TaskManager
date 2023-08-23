@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import ClientsTable from'../Components/ClientsTable'
 
-const ClientsOverview = ({getClients}) => {
+const ClientsOverview = ({getUsers}) => {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-    getClients()
+    getUsers()
     .then(clients => {
       setClients(clients);
     })

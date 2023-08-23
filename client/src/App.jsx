@@ -103,7 +103,7 @@ function App() {
                     
                     <li>
                         <Link to="/users">
-                            <button id="users">Clients</button>
+                            <button id="clients">Clients</button>
                         </Link>
                     </li>
                     
@@ -123,7 +123,7 @@ function App() {
         <Routes>
             <Route path="/" element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
-            <Route path="/users" element={<ClientsOverview getusers={getUsers}/>}/>
+            <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
             <Route path="/new-project" element={<NewProject getusers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
         </Routes>
     </>
