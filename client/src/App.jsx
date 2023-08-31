@@ -21,14 +21,15 @@ const handleLogin = async  (username, password) => {
     })
 
     const jwt = await response.text()
-    localStorage.setItem('key', jwt)
-    
+    localStorage.setItem('jwt', jwt)   
 }
 
-
-
 const fetchProjects = async (sortBy, sortDirection) => {
-    const url = new URL(`${constants.baseURL + constants.projects}`);
+    const jwt = localStorage.getItem('jwt');
+    if(!jwt) {
+        console.log('JWT not provided')
+    }
+    const url = new URL(`${constants.baseURL + constants.projects}/client`);
     const params = new URLSearchParams();
 
     if(sortBy) {
@@ -40,12 +41,12 @@ const fetchProjects = async (sortBy, sortDirection) => {
     url.search = params.toString();
 
     const headers = new Headers();
-    
-    const auth = Buffer.from(
-        constants.username + ':' + constants.password
-    ).toString('base64');
+    headers.set('Authorization', `Bearer ${jwt}`)
+    // const auth = Buffer.from(
+    //     constants.username + ':' + constants.password
+    // ).toString('base64');
 
-    headers.set('Authorization', 'Basic ' + auth);
+    // headers.set('Authorization', 'Basic ' + auth);
 
     const response = await fetch(url,{
         headers: headers
@@ -56,14 +57,24 @@ const fetchProjects = async (sortBy, sortDirection) => {
 }
 
 const createProject = async (project) => {
-    return fetch(constants.baseURL + constants.projects, {
+    const jwt = localStorage.getItem('jwt');
+    if(!jwt) {
+        console.log('JWT not provided')
+    }
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${jwt}`)
+    headers.set('Content-Type', 'application/json');
+    console.log(JSON.stringify(project))
+    const response = await fetch(constants.baseURL + constants.projects, {
         method: 'POST',
-        headers:{
-            "Content-Type": "application/json",
-            'Authorization': `Basic ${btoa('admin:123')}`
-        }, 
+        headers:headers, 
         body: JSON.stringify(project)
-    }).then(res => res.json());
+    })
+    console.log(response);
+    // const data = await response.json();
+    // console.log(data);
+
+    // return data;
 }
 
 const getUsers = async () => {
@@ -87,7 +98,6 @@ const getProjectTypes = async () => {
     const data = await response.json();
     return data;
 }
-
 
 function App() {
   const [navBarVisible, setNavBarVisible] = useState(true);

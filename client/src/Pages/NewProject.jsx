@@ -11,7 +11,7 @@ const NewProject = ({getUsers, getStatus, getProjectTypes, createProject}) => {
   const [projectTypes, setProjectTypes] = useState([])
   const [formData, setFormData] = useState({
     name:'',
-    user:'',
+    user:{},
     type:'',
     briefing:'',
     deadline:''
@@ -48,9 +48,9 @@ const NewProject = ({getUsers, getStatus, getProjectTypes, createProject}) => {
       errors.name = 'Name is required.';
     }
   
-    if (!formData.user) {
-      errors.user = 'Client is required.';
-    }
+    // if (!formData.user) {
+    //   errors.user = 'Client is required.';
+    // }
   
     if (!formData.type) {
       errors.type = 'Type is required.';
@@ -82,7 +82,7 @@ const NewProject = ({getUsers, getStatus, getProjectTypes, createProject}) => {
     if(isInputValid) {
       console.log(formData);
       createProject(formData)
-      .then(() => navigate('/'));
+      .then(() => navigate('/projects'));
     }
   }
 
@@ -113,7 +113,7 @@ const NewProject = ({getUsers, getStatus, getProjectTypes, createProject}) => {
         <input type="text" className={inputErrors.name && 'error'}id='project-name'name='name' value={formData.name} onChange={handleChange}/>
 
 
-        <label htmlFor="client">Client:</label>
+        {/* <label htmlFor="client">Client:</label>
         {inputErrors.user && <span className='error-message'>{inputErrors.user}</span>}
         <select name="client" id="client" className={inputErrors.user && 'error'} value= {formData.username} onChange={handleUserSelect}>
           <option value="">Choose Client</option>
@@ -122,7 +122,7 @@ const NewProject = ({getUsers, getStatus, getProjectTypes, createProject}) => {
               <option value={index} key={user.id}>{user.username}</option> 
               )
             })}
-        </select>
+        </select> */}
         
         <label htmlFor="type">Type:</label>
         {inputErrors.type && <span className='error-message'>{inputErrors.type}</span>}
