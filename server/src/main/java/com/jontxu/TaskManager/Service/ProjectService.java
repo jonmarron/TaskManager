@@ -2,6 +2,7 @@ package com.jontxu.TaskManager.Service;
 
 import com.jontxu.TaskManager.model.Project;
 import com.jontxu.TaskManager.model.ProjectRepository;
+import com.jontxu.TaskManager.model.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ public class ProjectService {
             sorting = Sort.by(direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sort);
         }
         return projectRepository.findAll(sorting);
+    }
+
+    public List<Project> getProjectsForUser(User user) {
+        return projectRepository.findByUser(user);
     }
 
     public Optional<Project> getOneById(long id) {

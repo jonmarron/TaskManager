@@ -18,7 +18,7 @@ public class Populator {
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("123"));
-            admin.setAuthorities(Set.of("ADMIN","USER"));
+            admin.setAuthorities(Set.of("ADMIN"));
 
 
             User user = new User();

@@ -10,11 +10,13 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,29 +36,28 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(
-        securedEnabled = true
-)
 @EnableConfigurationProperties(RsaKeyProperties.class)
 public class SecurityConfiguration {
-
+    JwtDecoder jwtDecoder;
     //    Filter chain configuration
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/projects").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/projects/client").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/projects").hasAuthority("ADMIN")
                         .requestMatchers("/clients").permitAll()
-                        .requestMatchers("/db").permitAll()
+                        .requestMatchers("/db/**").permitAll()
                         .requestMatchers("/status").permitAll()
                         .requestMatchers("/projectTypes").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder)))
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
-                .headers(o -> o.frameOptions().disable()) // this lets H2 database platform work
+                .headers( headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                //.headers(o -> o.frameOptions().disable()) // this lets H2 database platform work
                 .build();
     }
 
@@ -84,15 +85,5 @@ public class SecurityConfiguration {
     PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-    @Bean
-    JwtDecoder jwtDecoder(RsaKeyProperties properties){
-        return NimbusJwtDecoder.withPublicKey(properties.publicKey()).build();
-    }
 
-    @Bean
-    JwtEncoder jwtEncoder(RsaKeyProperties properties){
-        JWK jwk = new RSAKey.Builder(properties.publicKey()).privateKey(properties.privateKey()).build();
-        JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
-        return new NimbusJwtEncoder(jwkSource);
-    }
 }
