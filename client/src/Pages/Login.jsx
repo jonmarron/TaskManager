@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = ({handleLogin}) => {
+const Login = ({handleLogin, setIsLoggedIn}) => {
   const navigate = useNavigate();
   const [loginCredentials, setLoginCredentials] = useState({
     username:'',
@@ -17,7 +17,10 @@ const Login = ({handleLogin}) => {
   const handleSubmit = e => {
     e.preventDefault();
     handleLogin(loginCredentials.username, loginCredentials.password)
-    .then(()=> navigate('/projects'));
+    .then(()=> {
+      setIsLoggedIn(true);
+      navigate('/projects')
+    });
     
   }
 

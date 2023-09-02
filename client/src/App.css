@@ -159,6 +159,12 @@ button#create::before{
 button#clients::before{
   font-family: "Font Awesome 5 Free"; font-weight: 400; content: "\f007";
 }
+button#login::before{
+  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f090";
+}
+button#logout::before{
+  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f08b";
+}
 
 .bottom-nav {
   grid-row-start: row3-start;

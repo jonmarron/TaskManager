@@ -4,7 +4,7 @@ import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import ProjectOverview from './Pages/ProjectOverview';
-import {Link, Routes, Route} from 'react-router-dom'
+import {Link, Routes, Route, useNavigate} from 'react-router-dom'
 import ClientsOverview from './Pages/ClientsOverview';
 import { Buffer } from 'buffer';
 
@@ -100,10 +100,18 @@ const getProjectTypes = async () => {
 }
 
 function App() {
+  const navigate = useNavigate();
   const [navBarVisible, setNavBarVisible] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleMenuSideBar = () => {
     setNavBarVisible(!navBarVisible);
+  }
+  const handleLogout = e => {
+    e.preventDefault();
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    navigate('/')
   }
 
   return (
@@ -115,29 +123,43 @@ function App() {
             </div>
             <nav>
                 <ul>
-                    <li>
-                        <Link to="/">
-                            <button id='dashboard'>Dashboard</button>
-                        </Link>
-                    </li>
+                  {isLoggedIn ? (
                     
+                      <>
+                        <li>
+                            <Link to="/projects">
+                                <button id='dashboard'>Dashboard</button>
+                            </Link>
+                        </li>
+                        
+                        <li>
+                            <Link to="/projects">
+                                <button id="projects">Projects</button>
+                            </Link>
+                        </li>
+                        
+                        <li>
+                            <Link to="/users">
+                                <button id="clients">Clients</button>
+                            </Link>
+                        </li>
+                        
+                        <li>
+                            <Link to="/new-project">
+                                <button id="create">New Project</button>
+                            </Link>
+                        </li>
+                        <li>
+                          <button id='logout' onClick={handleLogout}>Log-out</button>
+                        </li>
+                      </>
+                  ):(
                     <li>
-                        <Link to="/projects">
-                            <button id="projects">Projects</button>
-                        </Link>
+                      <Link to="/">
+                          <button id='login'>Login</button>
+                      </Link>
                     </li>
-                    
-                    <li>
-                        <Link to="/users">
-                            <button id="clients">Clients</button>
-                        </Link>
-                    </li>
-                    
-                    <li>
-                        <Link to="/new-project">
-                            <button id="create">New Project</button>
-                        </Link>
-                    </li>
+                  )}
                     
                 </ul>
             </nav>
@@ -147,7 +169,7 @@ function App() {
             </div>
         </div>
         <Routes>
-            <Route path="/" element={<Login handleLogin={handleLogin}/>}/>
+            <Route path="/" element={<Login handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
             <Route path="/new-project" element={<NewProject getUsers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
