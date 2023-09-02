@@ -28,6 +28,7 @@ public class Project {
     private User user;
     private String name;
     private ProjectType type;
+    @Lob
     private String briefing;
     private LocalDate deadline;
     @Enumerated(EnumType.STRING)
