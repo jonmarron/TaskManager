@@ -51,16 +51,14 @@ textarea {
   font-size: .7rem;
 }
 
-button.primary-btn {
+button.primary-btn, button.secondary-btn {
   cursor: pointer;
   display: flex;
   padding: 15px 20px;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  background-color: var(--accent-color);
   font-family: Inter;
-  color: var(--light-text);
   font-size: .8rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -70,11 +68,33 @@ button.primary-btn {
   transition: .3s ease-in-out;
 }
 
+button.primary-btn {
+  background-color: var(--accent-color);
+  color: var(--light-text);
+}
+
+button.secondary-btn {
+  background-color: transparent;
+  color: var(--accent-color);
+}
+
+
 button.primary-btn::after{
   font-family: "Font Awesome 5 Free";
   font-weight: 700;
   content: "\f061";
   margin-left: 20px;
+}
+
+.btn-set {
+  margin-top: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btn-set button {
+  margin-right: 20px;
 }
 
 /* NAVBAR start */
@@ -98,7 +118,7 @@ button.primary-btn::after{
   transform: translateX(-225px);
 }
 .navBar.hidden button {
-  width: 50%;
+  opacity: 0;
 }
 
 .logo {
@@ -135,7 +155,8 @@ nav ul li button{
   border-radius: 10px;
   text-align: left;
   margin-bottom:20px;
-  transition: 1s ease-in-out width;
+  transition: 1s ease-in-out opacity;
+  opacity: 1;
 }
 
 nav ul li button::before{
@@ -166,10 +187,16 @@ button#logout::before{
   font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f08b";
 }
 
+
 .bottom-nav {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
   grid-row-start: row3-start;
   grid-column-start: only;
   text-align: left;
+  transform: rotate(-90deg) translateX(110%);
+  transform-origin: 100% 100%;
 }
 
 #copyright::after{
@@ -236,4 +263,24 @@ form {
   justify-content: flex-start;
   align-items: flex-start;
 }
+/* NEW PROJECT end */
+
+/* LOGIN start */
+
+.login {
+  width: 20vw;
+}
+
+.login form {
+  margin-top: 100px;
+  width: 100%;
+}
+
+.login img {
+  margin-top: 150px;
+  width: 60%;
+}
+
+
+/* LOGIN end */
 

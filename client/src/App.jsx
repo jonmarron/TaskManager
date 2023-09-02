@@ -101,7 +101,7 @@ const getProjectTypes = async () => {
 
 function App() {
   const navigate = useNavigate();
-  const [navBarVisible, setNavBarVisible] = useState(true);
+  const [navBarVisible, setNavBarVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleMenuSideBar = () => {
@@ -116,7 +116,7 @@ function App() {
 
   return (
     <>
-        <div className={`navBar ${navBarVisible? '':'hidden'}`}>
+        <div className={`navBar ${navBarVisible? '':'hidden'}`} onMouseEnter={()=> setNavBarVisible(true)} onMouseLeave={()=> setNavBarVisible(false)}>
             <div className="logo">
                 <Link to="/"><img src="/LogoVertical.svg" alt="" /></Link>
                 <FontAwesomeIcon id="burger-menu" icon={faBars} size='lg' onClick={handleMenuSideBar}/>
@@ -164,7 +164,7 @@ function App() {
                 </ul>
             </nav>
             <div className="bottom-nav">
-                <span id="copyright">Made with  </span> <span> by <a href="https://www.google.com" target="_blank">Jon</a></span>
+                <span id="copyright">Made with  </span> <span> by <a href="http://www.jonmarron.com" target="_blank">Jon</a></span>
             
             </div>
         </div>
