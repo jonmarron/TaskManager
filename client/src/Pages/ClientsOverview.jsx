@@ -8,6 +8,7 @@ const ClientsOverview = ({getUsers}) => {
     getUsers()
     .then(clients => {
       setClients(clients);
+      console.log(clients);
     })
   }, [])
   

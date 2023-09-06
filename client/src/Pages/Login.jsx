@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import { useSetUserAuthorities, useUserAuthorities } from '../Context/UserContext';
 
 const Login = ({handleLogin, setIsLoggedIn}) => {
   const navigate = useNavigate();
@@ -7,6 +8,8 @@ const Login = ({handleLogin, setIsLoggedIn}) => {
     username:'',
     password:''
   })
+
+  const setAuthorities = useSetUserAuthorities();
 
   const handleChange = e => {
     setLoginCredentials({
@@ -19,6 +22,7 @@ const Login = ({handleLogin, setIsLoggedIn}) => {
     handleLogin(loginCredentials.username, loginCredentials.password)
     .then(()=> {
       setIsLoggedIn(true);
+      setAuthorities(localStorage.getItem('auth').split(','))
       navigate('/projects')
     });
     

@@ -117,6 +117,8 @@ button.primary-btn::after{
 .navBar.hidden{
   transform: translateX(-225px);
 }
+
+
 .navBar.hidden button {
   opacity: 0;
 }
@@ -135,17 +137,23 @@ button.primary-btn::after{
 
 nav ul {
   height: 50vh;
-  list-style: none;
-  width: 100%;;
+  list-style: none; 
+  width: 100%;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 nav ul li {
+  position: relative;
   margin: 0;
   padding: 0;
   width:100%;
 }
 
 nav ul li button{
+  position: relative;
+  right: 0;
+  top: 0;
   cursor: pointer;
   font-size: 1rem;
   background:#ffffff10;
@@ -242,11 +250,16 @@ th:not(.long-text), td:not(.long-text) {
 }
 td.long-text, th.long-text {
   width: 250px;
+  height: 50px;
+  overflow-y: hidden;
 }
 tr:not(:first-child){
   cursor: pointer;
   transition: .5s ease-in-out;
+  height: 50px;
+  overflow: hidden;
 }
+
 tr:not(:first-child):hover{
   background-color: #00000020;
 }

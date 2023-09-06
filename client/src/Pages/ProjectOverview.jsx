@@ -5,7 +5,6 @@ const ProjectOverview = ({fetchProjects}) => {
   const [projects, setProjects] = useState([]);
   const [sortBy, setSortBy] = useState('');
   const [sortDirection, setSortDirection] = useState('');
-
   useEffect(() => {
       fetchProjects(sortBy, sortDirection)
       .then(projects => {
@@ -16,6 +15,7 @@ const ProjectOverview = ({fetchProjects}) => {
   return (
     <ProjectTable
       projects={projects}
+      setProjects={setProjects}
       sortBy={sortBy}
       setSortBy={setSortBy}
       sortDirection={sortDirection}

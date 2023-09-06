@@ -1,118 +1,42 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import ProjectOverview from './Pages/ProjectOverview';
 import {Link, Routes, Route, useNavigate} from 'react-router-dom'
 import ClientsOverview from './Pages/ClientsOverview';
-import { Buffer } from 'buffer';
-
-import { constants } from './Constants/Constants';
+import {handleLogin, fetchProjects, createProject, getUsers, getStatus, getProjectTypes} from './Helpers/APIfunctions'
 import NewProject from './Pages/NewProject';
 import Login from './Pages/Login';
+import { useSetUserAuthorities, useUserAuthorities } from './Context/UserContext';
 
-const handleLogin = async  (username, password) => {
-    const headers = new Headers();
-    const auth = Buffer.from(username + ':' + password).toString('base64');
-    headers.set('Authorization', `Basic ${auth}`);
-    const response = await fetch(constants.baseURL + constants.login, {
-        headers: headers
-    })
 
-    const jwt = await response.text()
-    localStorage.setItem('jwt', jwt)   
-}
-
-const fetchProjects = async (sortBy, sortDirection) => {
-    const jwt = localStorage.getItem('jwt');
-    if(!jwt) {
-        console.log('JWT not provided')
-    }
-    const url = new URL(`${constants.baseURL + constants.projects}/client`);
-    const params = new URLSearchParams();
-
-    if(sortBy) {
-        params.append('sort', sortBy)
-    }
-    if(sortDirection){
-        params.append('direction', sortDirection)
-    }
-    url.search = params.toString();
-
-    const headers = new Headers();
-    headers.set('Authorization', `Bearer ${jwt}`)
-    // const auth = Buffer.from(
-    //     constants.username + ':' + constants.password
-    // ).toString('base64');
-
-    // headers.set('Authorization', 'Basic ' + auth);
-
-    const response = await fetch(url,{
-        headers: headers
-    })
-
-    const data = await response.json();
-    return data;
-}
-
-const createProject = async (project) => {
-    const jwt = localStorage.getItem('jwt');
-    if(!jwt) {
-        console.log('JWT not provided')
-    }
-    const headers = new Headers();
-    headers.set('Authorization', `Bearer ${jwt}`)
-    headers.set('Content-Type', 'application/json');
-    console.log(JSON.stringify(project))
-    const response = await fetch(constants.baseURL + constants.projects, {
-        method: 'POST',
-        headers:headers, 
-        body: JSON.stringify(project)
-    })
-    console.log(response);
-    // const data = await response.json();
-    // console.log(data);
-
-    // return data;
-}
-
-const getUsers = async () => {
-    const response = await fetch(constants.baseURL + constants.users, {
-        headers: {
-            'Authorization': `Basic ${btoa('admin:123')}`
-        }
-    })
-    const data = await response.json();
-    return data;
-}
-
-const getStatus = async () => {
-    const response = await fetch(constants.baseURL + constants.status)
-    const data = await response.json();
-    return data;
-}
-
-const getProjectTypes = async () => {
-    const response = await fetch(constants.baseURL + constants.projectTypes)
-    const data = await response.json();
-    return data;
-}
 
 function App() {
   const navigate = useNavigate();
-  const [navBarVisible, setNavBarVisible] = useState(false);
+  const [navBarVisible, setNavBarVisible] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const authorities = useUserAuthorities();
+  const setAuthorities = useSetUserAuthorities();
   const handleMenuSideBar = () => {
     setNavBarVisible(!navBarVisible);
   }
   const handleLogout = e => {
     e.preventDefault();
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     navigate('/')
   }
+  useEffect(() => {
+    if(localStorage.getItem('auth')) {
+      setAuthorities(localStorage.getItem('auth'))
+    }
+    if(localStorage.getItem('jwt')) {
+      setIsLoggedIn(true);
+    }
+  }, [])
+  
 
   return (
     <>
@@ -137,12 +61,13 @@ function App() {
                                 <button id="projects">Projects</button>
                             </Link>
                         </li>
-                        
-                        <li>
-                            <Link to="/users">
-                                <button id="clients">Clients</button>
-                            </Link>
-                        </li>
+                        {authorities.includes('ADMIN') &&
+                          <li>
+                              <Link to="/users">
+                                  <button id="clients">Clients</button>
+                              </Link>
+                          </li>
+                        }
                         
                         <li>
                             <Link to="/new-project">
@@ -169,7 +94,7 @@ function App() {
             </div>
         </div>
         <Routes>
-            <Route path="/" element={<Login handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn}/>}/>
+            <Route path="/" element={!isLoggedIn?<Login handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn}/>:<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
             <Route path="/new-project" element={<NewProject getUsers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
