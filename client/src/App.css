@@ -36,7 +36,7 @@ input, select, textarea, option {
   border: none;
   border-radius: .5rem;
   margin:10px 0 15px 0;
-  background-color: #ffffff10;
+  background-color: #242627;
 }
 
 .error {
@@ -156,7 +156,7 @@ nav ul li button{
   top: 0;
   cursor: pointer;
   font-size: 1rem;
-  background:#ffffff10;
+  background:#242627;
   padding: 20px 30px;
   border: none;
   width: 100%;
@@ -219,7 +219,7 @@ button#logout::before{
 .table-container {
   padding:10px 20px 20px 20px;
   border-radius: .7rem;
-  background:#ffffff10 ;
+  background:#242627 ;
   max-width: 1200px;
 }
 .table-container.clients {
@@ -228,7 +228,6 @@ button#logout::before{
 table {
   width: 100%;
   border-collapse: collapse;
-  overflow: hidden;
   padding:0 20px;
   border-radius: 10px;
 }
@@ -238,6 +237,7 @@ td , th{
   text-align: left;
   vertical-align: text-top;
 }
+
 th{
   border-bottom: 1px solid var(--accent-color);
   vertical-align: bottom;
@@ -250,18 +250,35 @@ th:not(.long-text), td:not(.long-text) {
 }
 td.long-text, th.long-text {
   width: 250px;
-  height: 50px;
-  overflow-y: hidden;
+  overflow: hidden;
 }
-tr:not(:first-child){
+td.long-text div {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+td.long-text div .gradient {
+  position: absolute;
+  background: linear-gradient(180deg, rgba(36,38,39,0) 0%, rgba(36,38,39,1) 100%);
+  height: 70px;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  transition: .8s ease-in-out;
+}
+
+tbody tr{
   cursor: pointer;
   transition: .5s ease-in-out;
   height: 50px;
   overflow: hidden;
 }
 
-tr:not(:first-child):hover{
-  background-color: #00000020;
+tbody tr:hover{
+  background-color: #1F2122;
+}
+tbody tr:hover td.long-text div .gradient{
+  background: linear-gradient(180deg, rgba(31,33,34,0) 0%, rgba(31,33,34,1) 100%);
 }
 
 /* TABLE end */

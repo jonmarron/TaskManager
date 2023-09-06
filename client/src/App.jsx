@@ -50,11 +50,11 @@ function App() {
                   {isLoggedIn ? (
                     
                       <>
-                        <li>
+                        {/* <li>
                             <Link to="/projects">
                                 <button id='dashboard'>Dashboard</button>
                             </Link>
-                        </li>
+                        </li> */}
                         
                         <li>
                             <Link to="/projects">

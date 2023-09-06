@@ -21,41 +21,52 @@ const ProjectTable = ({projects,setProjects, sortBy, setSortBy, sortDirection, s
         <div className="table-container">
             <table className='table'>
     
-              <tr>
-                  <th className='tableHeader'> Name</th>
-                  <th className='tableHeader'>Client</th>
-                  <th className='tableHeader'>Status</th>
-                  <th className='tableHeader'>Type</th>
-                  <th className='tableHeader'>Briefing</th>
-                  <th className='tableHeader'>Deadline</th>
-                  <th className='tableHeader'><FontAwesomeIcon icon={faEye} /></th>
-                  {authorities.includes('ADMIN') && 
-                    <th className='tableHeader'><FontAwesomeIcon icon={faTrashCan} /></th>
-                  }
+              <thead>
+                <tr>
+                    <th className='tableHeader'> Name</th>
+                    {!authorities.includes('ADMIN') &&
+                      <th className='tableHeader'>Client</th>
+                    }
+                    <th className='tableHeader'>Status</th>
+                    <th className='tableHeader'>Type</th>
+                    <th className='tableHeader'>Briefing</th>
+                    <th className='tableHeader'>Deadline</th>
+                    <th className='tableHeader'><FontAwesomeIcon icon={faEye} /></th>
+                    {authorities.includes('ADMIN') &&
+                      <th className='tableHeader'><FontAwesomeIcon icon={faTrashCan} /></th>
+                    }
+                </tr>
+              </thead>
 
-
-              </tr>
-
-              {projects && projects.map((project) => {
-                  return (
-                      <tr key={project.id}>
-                          <td>{project.name}</td>
-                          <td>{project.user.username}</td>
-                          <td>{processEnum(project.status)}</td>
-                          <td>{processEnum(project.type)}</td>
-                          <td className="long-text">{project.briefing}</td>
-                          <td>{formatDate(project.deadline)}</td>
-                          <td>
-                              <a href={project.previewLink} target="_blank">
-                              <FontAwesomeIcon icon={faEye}/>
-                              </a>
-                          </td>
-                          {authorities.includes('ADMIN') && 
-                            <td className='tableHeader'><FontAwesomeIcon icon={faTrashCan} id={project.id} onClick={handleDelete} /></td>
-                          }
-                      </tr>
-                  )
-              })}
+              <tbody>
+                {projects && projects.map((project) => {
+                    return (
+                        <tr key={project.id}>
+                            <td>{project.name}</td>
+                            {!authorities.includes('ADMIN') &&
+                              <td>{project.user.username}</td>
+                            }
+                            <td>{processEnum(project.status)}</td>
+                            <td>{processEnum(project.type)}</td>
+                            <td className="long-text">
+                              <div>
+                                {project.briefing}
+                              <div className="gradient"></div>
+                              </div>
+                            </td>
+                            <td>{formatDate(project.deadline)}</td>
+                            <td>
+                                <a href={project.previewLink} target="_blank">
+                                <FontAwesomeIcon icon={faEye}/>
+                                </a>
+                            </td>
+                            {authorities.includes('ADMIN') &&
+                              <td className='tableHeader'><FontAwesomeIcon icon={faTrashCan} id={project.id} onClick={handleDelete} /></td>
+                            }
+                        </tr>
+                    )
+                })}
+              </tbody>
             </table>
             </div>
     </div>
