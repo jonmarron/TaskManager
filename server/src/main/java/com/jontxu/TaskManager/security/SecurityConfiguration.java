@@ -46,7 +46,8 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.GET,"/projects/client").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/projects").hasAuthority("SCOPE_ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/projects").hasAuthority("SCOPE_USER")
+                        .requestMatchers(HttpMethod.DELETE, "/projects").hasAuthority("SCOPE_ADMIN")
                         .requestMatchers("/clients").permitAll()
                         .requestMatchers("/db/**").permitAll()
                         .requestMatchers("/status").permitAll()
