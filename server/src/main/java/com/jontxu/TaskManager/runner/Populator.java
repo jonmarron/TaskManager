@@ -18,7 +18,7 @@ public class Populator {
 
             User admin = new User();
             admin.setUsername("admin");
-            admin.setPassword("123456");
+            admin.setPassword(passwordEncoder.encode("123"));
             admin.setAuthorities(Set.of("ADMIN","USER"));
 
             User allaboutperiod = new User();
@@ -28,23 +28,23 @@ public class Populator {
 
 
             User artebagno = new User();
-            artebagno.setUsername("user");
+            artebagno.setUsername("artebagno");
             artebagno.setPassword(passwordEncoder.encode("123"));
             artebagno.setAuthorities(Set.of("USER"));
 
 
 
 
-            String briefing1 = "Paragraphs\n" +
-                    "Create an internal website for employees to log and track their Foosball games, fostering team spirit. Develop user-friendly features, leaderboards, and a casual, collaborative design reflecting our company culture. Aim for a three-month launch with regular updates.";
+            String briefing1 = "Create an internal website for employees to log and track their Foosball games, fostering team spirit. Develop user-friendly features, leaderboards, and a casual, collaborative design reflecting our company culture. Aim for a three-month launch with regular updates.";
             String briefing2 = "Develop a user-friendly e-commerce platform for our sustainable period products store, emphasizing eco-friendliness and convenience. Showcase a wide product range, provide educational content on sustainability, and ensure a seamless shopping experience. Aim for a launch within three months to promote environmentally conscious choices.";
             String briefing3 = "Redesign our dating app's navigation bar for improved user experience. Prioritize key features, enhance aesthetics, and ensure brand consistency. Complete the redesign in two months, incorporating usability testing feedback.";
+            String briefing4 = "Create a captivating landing page for a bathtub company that highlights their luxurious and innovative bathtub designs. Showcase an array of exquisite products, emphasizing their comfort, style, and cutting-edge features. Implement an intuitive navigation system and compelling visuals to engage visitors and drive inquiries.";
 
 
             Project project1 = Project.builder()
                     .name("WuzzlerScore")
                     .briefing(briefing1)
-                    .type(ProjectType.GRAPHIC_DESIGN)
+                    .type(ProjectType.DESIGN_DEVELOPMENT)
                     .user(artebagno)
                     .deadline(LocalDate.now().plusMonths(1).plusDays(3))
                     .status(Status.IN_PROGRESS)
@@ -63,7 +63,7 @@ public class Populator {
 
             Project project3 = Project.builder()
                     .name("Landing Page")
-                    .briefing("Lorem Ipsum Sit Dolor Amet sit dolor amet")
+                    .briefing(briefing4)
                     .type(ProjectType.DESIGN)
                     .user(artebagno)
                     .deadline(LocalDate.now().plusYears(1).minusDays(20))
@@ -80,6 +80,7 @@ public class Populator {
                     .previewLink("http://www.google.com")
                     .build();
 
+            userService.addClient(admin);
             userService.addClient(allaboutperiod);
             userService.addClient(artebagno);
 
