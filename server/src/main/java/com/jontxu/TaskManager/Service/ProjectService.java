@@ -31,6 +31,9 @@ public class ProjectService {
     }
 
     public List<Project> getProjectsForUser(User user) {
+        if(user.getUsername().equalsIgnoreCase("admin")) {
+            return projectRepository.findAll();
+        }
         return projectRepository.findByUser(user);
     }
 
