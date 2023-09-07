@@ -15,7 +15,7 @@ import { useSetUserAuthorities, useUserAuthorities } from './Context/UserContext
 
 function App() {
   const navigate = useNavigate();
-  const [navBarVisible, setNavBarVisible] = useState(true);
+  const [navBarVisible, setNavBarVisible] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const authorities = useUserAuthorities();
   const setAuthorities = useSetUserAuthorities();
@@ -40,15 +40,14 @@ function App() {
 
   return (
     <>
-        <div className={`navBar ${navBarVisible? '':'hidden'}`} onMouseEnter={()=> setNavBarVisible(true)} onMouseLeave={()=> setNavBarVisible(false)}>
+        {isLoggedIn && <div className={`navBar ${navBarVisible? '':'hidden'}`} onMouseEnter={()=> setNavBarVisible(true)} onMouseLeave={()=> setNavBarVisible(false)}>
             <div className="logo">
                 <Link to="/"><img src="/LogoVertical.svg" alt="" /></Link>
                 <FontAwesomeIcon id="burger-menu" icon={faBars} size='lg' onClick={handleMenuSideBar}/>
             </div>
             <nav>
                 <ul>
-                  {isLoggedIn ? (
-                    
+                  
                       <>
                         {/* <li>
                             <Link to="/projects">
@@ -78,13 +77,7 @@ function App() {
                           <button id='logout' onClick={handleLogout}>Log-out</button>
                         </li>
                       </>
-                  ):(
-                    <li>
-                      <Link to="/">
-                          <button id='login'>Login</button>
-                      </Link>
-                    </li>
-                  )}
+                  
                     
                 </ul>
             </nav>
@@ -92,7 +85,7 @@ function App() {
                 <span id="copyright">Made with  </span> <span> by <a href="http://www.jonmarron.com" target="_blank">Jon</a></span>
             
             </div>
-        </div>
+        </div>}
         <Routes>
             <Route path="/" element={!isLoggedIn?<Login handleLogin={handleLogin} setIsLoggedIn={setIsLoggedIn}/>:<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>

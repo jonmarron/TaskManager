@@ -97,6 +97,10 @@ button.primary-btn::after{
   margin-right: 20px;
 }
 
+.transparency-50 {
+  opacity: .5;
+}
+
 /* NAVBAR start */
 .navBar {
   position:fixed;
@@ -216,6 +220,44 @@ button#logout::before{
 /* NAVBAR end */
 
 /* TABLE start */
+.overview-container {
+  position: relative;
+}
+.modal-container {
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.modal {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+  box-shadow: 0 0 40px #00000050;
+  border-radius: 20px;
+  /* width: 40%; */
+}
+.modal p {
+  margin: 0;
+}
+.modal-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
 .table-container {
   padding:10px 20px 20px 20px;
   border-radius: .7rem;

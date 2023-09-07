@@ -4,10 +4,9 @@ const UserContext = createContext();
 
 export const UserProvider = ({children}) => {
   const [authorities, setAuthorities] = useState([]);
-  const [jwtToken, setJwtToken] = useState('');
 
   return (
-    <UserContext.Provider value={{ authorities, setAuthorities, jwtToken, setJwtToken }}>
+    <UserContext.Provider value={{ authorities, setAuthorities }}>
       {children}
     </UserContext.Provider>
   );
@@ -21,9 +20,3 @@ export const useSetUserAuthorities = () => {
   return useContext(UserContext).setAuthorities;
 }
 
-export const useUserToken = () => {
-  return usecontext(UserContext).jwtToken;
-}
-export const useSetUserToken = () => {
-  return usecontext(UserContext).setJwtToken;
-}

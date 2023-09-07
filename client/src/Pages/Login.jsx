@@ -38,7 +38,7 @@ const Login = ({handleLogin, setIsLoggedIn}) => {
         <input type="password" name="password" id="password" value={loginCredentials.password} onChange={handleChange}/>
         <div className="btn-set">
           <button type="submit" className='primary-btn'>Login</button>
-          <Link to="/"><button className='secondary-btn'>Sign up</button></Link>
+          {/* <Link to="/"><button className='secondary-btn'>Sign up</button></Link> */}
         </div>
       </form>
     </div>
