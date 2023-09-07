@@ -58,7 +58,6 @@ public class SecurityConfiguration {
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults())
                 .headers( headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
-                //.headers(o -> o.frameOptions().disable()) // this lets H2 database platform work
                 .build();
     }
 

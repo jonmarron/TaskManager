@@ -26,14 +26,25 @@ public class Populator {
             allaboutperiod.setPassword(passwordEncoder.encode("123"));
             allaboutperiod.setAuthorities(Set.of("USER"));
 
-
             User artebagno = new User();
             artebagno.setUsername("artebagno");
             artebagno.setPassword(passwordEncoder.encode("123"));
             artebagno.setAuthorities(Set.of("USER"));
 
+            User google = new User();
+            google.setUsername("Google");
+            google.setPassword(passwordEncoder.encode("123"));
+            google.setAuthorities(Set.of("USER"));
 
+            User bethesda = new User();
+            bethesda.setUsername("Bethesda");
+            bethesda.setPassword(passwordEncoder.encode("123"));
+            bethesda.setAuthorities(Set.of("USER"));
 
+            User nintendo = new User();
+            nintendo.setUsername("Nintendo");
+            nintendo.setPassword(passwordEncoder.encode("123"));
+            nintendo.setAuthorities(Set.of("USER"));
 
             String briefing1 = "Create an internal website for employees to log and track their Foosball games, fostering team spirit. Develop user-friendly features, leaderboards, and a casual, collaborative design reflecting our company culture. Aim for a three-month launch with regular updates.";
             String briefing2 = "Develop a user-friendly e-commerce platform for our sustainable period products store, emphasizing eco-friendliness and convenience. Showcase a wide product range, provide educational content on sustainability, and ensure a seamless shopping experience. Aim for a launch within three months to promote environmentally conscious choices.";
@@ -44,7 +55,7 @@ public class Populator {
             Project project1 = Project.builder()
                     .name("WuzzlerScore")
                     .briefing(briefing1)
-                    .type(ProjectType.DESIGN_DEVELOPMENT)
+                    .type(ProjectType.DEVELOPMENT)
                     .user(artebagno)
                     .deadline(LocalDate.now().plusMonths(1).plusDays(3))
                     .status(Status.IN_PROGRESS)
@@ -64,7 +75,7 @@ public class Populator {
             Project project3 = Project.builder()
                     .name("Landing Page")
                     .briefing(briefing4)
-                    .type(ProjectType.DESIGN)
+                    .type(ProjectType.DEVELOPMENT)
                     .user(artebagno)
                     .deadline(LocalDate.now().plusYears(1).minusDays(20))
                     .status(Status.APPROVED)
@@ -83,6 +94,9 @@ public class Populator {
             userService.addClient(admin);
             userService.addClient(allaboutperiod);
             userService.addClient(artebagno);
+            userService.addClient(google);
+            userService.addClient(bethesda);
+            userService.addClient(nintendo);
 
             projectService.createProject(project1);
             projectService.createProject(project2);

@@ -38,7 +38,6 @@ public class ProjectController {
     public List<Project> getProjectsForUser(Authentication authentication) {
         Jwt jwtToken = ((JwtAuthenticationToken) authentication).getToken();
         Jwt decodedJwt = jwtDecoder.decode(jwtToken.getTokenValue());
-        System.out.println(decodedJwt.getClaims());
         User user = userRepository.findByUsername(authentication.getName()).orElseThrow();
         return projectService.getProjectsForUser(user);
     }
