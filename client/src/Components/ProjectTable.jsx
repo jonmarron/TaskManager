@@ -5,12 +5,18 @@ import processEnum from '../Helpers/EnumProcessor'
 import formatDate from '../Helpers/DateFormatter'
 import { useUserAuthorities } from '../Context/UserContext'
 import { deleteProjectById, fetchProjects } from '../Helpers/APIfunctions'
+import { useNavigate } from 'react-router-dom'
 
 const ProjectTable = ({projects,setProjects, sortBy, setSortBy, sortDirection, setSortDirection}) => {
+  const navigate = useNavigate();
   const authorities = useUserAuthorities();
   const [deleting, setDeleting] = useState(false);
   const [deleteId, setDeleteId] = useState(0);
  
+  const handleSelectProject = (id) => {
+    navigate(`/projects/${id}`);
+  }
+
   const handleChooseDelete = (e) => {
     setDeleteId(e.target.id);
     setDeleting(true);
@@ -39,7 +45,7 @@ const ProjectTable = ({projects,setProjects, sortBy, setSortBy, sortDirection, s
             </div>
           </div>
         </div>}
-        <h1 className={deleting && 'transparency-50'}>Projects</h1>
+        <h1 className={deleting ? 'transparency-50': undefined}>Projects</h1>
         <div className={`table-container ${deleting && 'transparency-50'}`}>
             <table className='table'>
     
@@ -63,7 +69,7 @@ const ProjectTable = ({projects,setProjects, sortBy, setSortBy, sortDirection, s
               <tbody>
                 {projects && projects.map((project) => {
                     return (
-                        <tr key={project.id}>
+                        <tr key={project.id} onClick={() => handleSelectProject(project.id)}>
                             <td>{project.name}</td>
                             {authorities.includes('ADMIN') &&
                               <td>{project.user.username}</td>

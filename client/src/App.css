@@ -3,6 +3,7 @@
 }
 body {
   --background-color: #151719;
+  --gray-bg:#242627;
   --accent-color: #EF5840;
   background-color: var(--background-color);
   margin: 0;
@@ -36,7 +37,7 @@ input, select, textarea, option {
   border: none;
   border-radius: .5rem;
   margin:10px 0 15px 0;
-  background-color: #242627;
+  background-color: var(--gray-bg);
 }
 
 .error {
@@ -103,6 +104,7 @@ button.primary-btn::after{
 
 /* NAVBAR start */
 .navBar {
+  z-index: 9999;
   position:fixed;
   display: grid;
   grid-template-rows: [row1-start]2fr [row2-start]8fr [row3-start]1fr;
@@ -116,7 +118,8 @@ button.primary-btn::after{
   border-radius: 0 20px 20px 0;
   box-shadow: 5px 0 10px #00000090;
   transition: .7s ease-in-out transform;
-  background-color: var(--background-color);
+  background-color: #15171960;
+  backdrop-filter: blur(20px);
 }
 .navBar.hidden{
   transform: translateX(-225px);
@@ -160,7 +163,7 @@ nav ul li button{
   top: 0;
   cursor: pointer;
   font-size: 1rem;
-  background:#242627;
+  background:var(--gray-bg);
   padding: 20px 30px;
   border: none;
   width: 100%;
@@ -261,7 +264,7 @@ button#logout::before{
 .table-container {
   padding:10px 20px 20px 20px;
   border-radius: .7rem;
-  background:#242627 ;
+  background:var(--gray-bg) ;
   max-width: 1200px;
 }
 .table-container.clients {
@@ -352,7 +355,39 @@ form {
   margin-top: 150px;
   width: 60%;
 }
-
-
 /* LOGIN end */
 
+/* PROJECTDETAILS start */
+.project-details-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+.project-details-container .briefing, .project-details-container .details {
+  padding: 15px 25px;
+  border-radius: 20px;
+  text-align: left;
+  background-color: var(--gray-bg);
+}
+
+.project-details-container h2 {
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.project-details-container .detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+/* .project-details-container .detail h3{
+  margin: 0;
+} */
+
+.project-details-container .detail p {
+  text-align: right;
+}
+/* PROJECTDETAILS end */

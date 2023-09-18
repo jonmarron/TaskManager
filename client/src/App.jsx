@@ -9,6 +9,7 @@ import ClientsOverview from './Pages/ClientsOverview';
 import {handleLogin, fetchProjects, createProject, getUsers, getStatus, getProjectTypes} from './Helpers/APIfunctions'
 import NewProject from './Pages/NewProject';
 import Login from './Pages/Login';
+import ProjectDetails from './Pages/ProjectDetails';
 import { useSetUserAuthorities, useUserAuthorities } from './Context/UserContext';
 
 
@@ -91,6 +92,7 @@ function App() {
             <Route path='/projects' element={<ProjectOverview fetchProjects={fetchProjects}/>}/>
             <Route path="/users" element={<ClientsOverview getUsers={getUsers}/>}/>
             <Route path="/new-project" element={<NewProject getUsers={getUsers} getStatus={getStatus} getProjectTypes={getProjectTypes} createProject={createProject}/>}/>
+            <Route path="/projects/:id" element={<ProjectDetails/>}/>
         </Routes>
     </>
   )

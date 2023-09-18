@@ -42,6 +42,25 @@ export const fetchProjects = async (sortBy, sortDirection) => {
   return data;
 }
 
+export const fetchProjectById = async (id) => {
+  const jwt = localStorage.getItem('jwt');
+  if(!jwt) {
+    console.log('JWT not provided');
+  }
+
+  const url = new URL(`${constants.baseURL + constants.projects}/${id}`);
+  
+  const headers = new Headers();
+  headers.set('Authorization', `Bearer ${jwt}`)
+
+  const response = await fetch(url, {
+    headers: headers
+  })
+
+  const data = response.json();
+  return data;
+}
+
 export const createProject = async (project) => {
   const jwt = localStorage.getItem('jwt');
   if(!jwt) {
