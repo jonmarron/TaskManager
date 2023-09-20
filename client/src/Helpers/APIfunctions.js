@@ -93,10 +93,17 @@ export const deleteProjectById = async (id) => {
 }
 
 export const getUsers = async () => {
+
+  const jwt = localStorage.getItem('jwt');
+  if(!jwt) {
+    console.log('JWT not provided');
+  }
+
+  const headers = new Headers();
+  headers.set('Authorization', `Bearer ${jwt}`)
+
   const response = await fetch(constants.baseURL + constants.users, {
-      headers: {
-          'Authorization': `Basic ${btoa('admin:123')}`
-      }
+      headers: headers
   })
   const data = await response.json();
   return data;

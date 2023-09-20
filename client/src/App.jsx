@@ -68,12 +68,13 @@ function App() {
                               </Link>
                           </li>
                         }
-                        
-                        <li>
-                            <Link to="/new-project">
-                                <button id="create">New Project</button>
-                            </Link>
-                        </li>
+                        {!authorities.includes('ADMIN') &&
+                          <li>
+                              <Link to="/new-project">
+                                  <button id="create">New Project</button>
+                              </Link>
+                          </li>
+                        }
                         <li>
                           <button id='logout' onClick={handleLogout}>Log-out</button>
                         </li>

@@ -358,11 +358,17 @@ form {
 /* LOGIN end */
 
 /* PROJECTDETAILS start */
+.project-details {
+  width: 100%;
+}
+
 .project-details-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 30px;
+  width: 50vw;
 }
+
 .project-details-container .briefing, .project-details-container .details {
   padding: 15px 25px;
   border-radius: 20px;
@@ -378,9 +384,16 @@ form {
 .project-details-container .detail {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center ;
   padding: 0;
   margin-bottom: 30px;
+}
+
+.project-details-container textarea {
+  font-size: 1rem;
+  width: 100%;
+  height: 50%;
+  resize: vertical;
 }
 
 /* .project-details-container .detail h3{

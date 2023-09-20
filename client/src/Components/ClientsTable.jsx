@@ -1,7 +1,7 @@
 import React from 'react'
 import formatDate from '../Helpers/DateFormatter'
 
-const ClientsTable = ({clients}) => {
+const ClientsTable = ({users}) => {
 
   return (
       <div className='table-container clients'>
@@ -10,11 +10,11 @@ const ClientsTable = ({clients}) => {
             <th>Client name</th>
             <th>Registration Date</th>
           </tr>
-          {clients.map(client => {
+          {users.map(user => {
             return (
-              <tr key={client.id}>
-                <td>{client.username}</td>
-                <td>{formatDate(client.registrationDate)}</td>
+              <tr key={user.id}>
+                <td>{user.username}</td>
+                <td>{formatDate(user.registrationDate)}</td>
               </tr>
             )
           })}
