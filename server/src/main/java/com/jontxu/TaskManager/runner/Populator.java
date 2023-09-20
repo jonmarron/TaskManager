@@ -17,7 +17,7 @@ public class Populator {
         return args -> {
 
             User admin = new User();
-            admin.setUsername("admin");
+            admin.setUsername("demo_admin");
             admin.setPassword(passwordEncoder.encode("123"));
             admin.setAuthorities(Set.of("ADMIN","USER"));
 
@@ -26,10 +26,10 @@ public class Populator {
             allaboutperiod.setPassword(passwordEncoder.encode("123"));
             allaboutperiod.setAuthorities(Set.of("USER"));
 
-            User artebagno = new User();
-            artebagno.setUsername("artebagno");
-            artebagno.setPassword(passwordEncoder.encode("123"));
-            artebagno.setAuthorities(Set.of("USER"));
+            User demoUser = new User();
+            demoUser.setUsername("demo_user");
+            demoUser.setPassword(passwordEncoder.encode("123"));
+            demoUser.setAuthorities(Set.of("USER"));
 
             User google = new User();
             google.setUsername("Google");
@@ -46,44 +46,64 @@ public class Populator {
             nintendo.setPassword(passwordEncoder.encode("123"));
             nintendo.setAuthorities(Set.of("USER"));
 
-            String briefing1 = "Create an internal website for employees to log and track their Foosball games, fostering team spirit. Develop user-friendly features, leaderboards, and a casual, collaborative design reflecting our company culture. Aim for a three-month launch with regular updates.";
-            String briefing2 = "Develop a user-friendly e-commerce platform for our sustainable period products store, emphasizing eco-friendliness and convenience. Showcase a wide product range, provide educational content on sustainability, and ensure a seamless shopping experience. Aim for a launch within three months to promote environmentally conscious choices.";
-            String briefing3 = "Redesign our dating app's navigation bar for improved user experience. Prioritize key features, enhance aesthetics, and ensure brand consistency. Complete the redesign in two months, incorporating usability testing feedback.";
-            String briefing4 = "Create a captivating landing page for a bathtub company that highlights their luxurious and innovative bathtub designs. Showcase an array of exquisite products, emphasizing their comfort, style, and cutting-edge features. Implement an intuitive navigation system and compelling visuals to engage visitors and drive inquiries.";
+            String briefing1 = "Design a visually appealing and intuitive user interface for our tech company's new product, focusing on creating a modern and user-friendly dashboard for our customers. Incorporate our brand colors and ensure seamless navigation.";
+            String briefing2 = "Develop a responsive and interactive user registration system for our product, allowing users to sign up, verify their email addresses, and set up their profiles. Implement robust security measures to safeguard user data.";
+            String briefing3 = "Build a data visualization feature that dynamically displays real-time analytics and statistics within our product's dashboard. Utilize JavaScript and relevant libraries to present key data trends in an engaging and easily comprehensible manner.";
+            String briefing4 = "Create a search functionality within our product's interface, enabling users to efficiently find and access specific information or resources. Implement filters and sorting options to enhance the user's search experience, optimizing performance for large datasets.";
+            String briefing5 = "Redesign the period products webshop to create a more modern and user-friendly interface. Focus on improving the overall user experience, enhancing product categorization, and optimizing the checkout process for seamless shopping.";
+            String briefing6 = "Develop a dedicated landing page for the \"FlowCup\" menstruation cup, focusing on educating potential customers about its benefits, sustainability, and ease of use. Incorporate engaging visuals, persuasive copy, and clear calls to action to encourage visitors to make a purchase or request more information. Optimize the page for search engines to drive organic traffic.";
 
 
             Project project1 = Project.builder()
-                    .name("WuzzlerScore")
+                    .name("UI Revamp")
                     .briefing(briefing1)
                     .type(ProjectType.DEVELOPMENT)
-                    .user(artebagno)
+                    .user(demoUser)
                     .deadline(LocalDate.now().plusMonths(1).plusDays(3))
                     .status(Status.IN_PROGRESS)
                     .previewLink("http://www.google.com")
                     .build();
 
             Project project2 = Project.builder()
-                    .name("Webshop AAP")
+                    .name("User Registration")
                     .briefing(briefing2)
                     .type(ProjectType.DESIGN_DEVELOPMENT)
-                    .user(allaboutperiod)
+                    .user(demoUser)
                     .deadline(LocalDate.now().plusMonths(5).plusDays(8))
                     .status(Status.TODO)
                     .previewLink("http://www.google.com")
                     .build();
 
             Project project3 = Project.builder()
-                    .name("Landing Page")
+                    .name("Search Enhancements")
                     .briefing(briefing4)
                     .type(ProjectType.DEVELOPMENT)
-                    .user(artebagno)
+                    .user(demoUser)
                     .deadline(LocalDate.now().plusYears(1).minusDays(20))
                     .status(Status.APPROVED)
                     .previewLink("http://www.google.com")
                     .build();
             Project project4 = Project.builder()
-                    .name("Navigation Design")
+                    .name("Data Visualization")
                     .briefing(briefing3)
+                    .type(ProjectType.DESIGN)
+                    .user(demoUser)
+                    .deadline(LocalDate.now().plusMonths(8).minusDays(20))
+                    .status(Status.DONE)
+                    .previewLink("http://www.google.com")
+                    .build();
+            Project project5 = Project.builder()
+                    .name("Website Redesign")
+                    .briefing(briefing5)
+                    .type(ProjectType.DESIGN)
+                    .user(allaboutperiod)
+                    .deadline(LocalDate.now().plusMonths(8).minusDays(20))
+                    .status(Status.DONE)
+                    .previewLink("http://www.google.com")
+                    .build();
+            Project project6 = Project.builder()
+                    .name("FlowCup Landing Page")
+                    .briefing(briefing6)
                     .type(ProjectType.DESIGN)
                     .user(allaboutperiod)
                     .deadline(LocalDate.now().plusMonths(8).minusDays(20))
@@ -93,7 +113,7 @@ public class Populator {
 
             userService.addClient(admin);
             userService.addClient(allaboutperiod);
-            userService.addClient(artebagno);
+            userService.addClient(demoUser);
             userService.addClient(google);
             userService.addClient(bethesda);
             userService.addClient(nintendo);
@@ -102,6 +122,8 @@ public class Populator {
             projectService.createProject(project2);
             projectService.createProject(project3);
             projectService.createProject(project4);
+            projectService.createProject(project5);
+            projectService.createProject(project6);
         };
     }
 }
