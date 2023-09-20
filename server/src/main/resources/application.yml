@@ -3,15 +3,11 @@ rsa:
     public-key: classpath:certificates/public.pem
 spring:
     datasource:
-        url: jdbc:h2:file:~/taskManager
-        username: sa
-        password:
-        driverClassName: org.h2.Driver
+        url: jdbc:postgresql://containers-us-west-176.railway.app:7374/railway
+        username: postgres
+        password: 2WE5DegBMqmg9ctSH8PY
+        driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
-            ddl-auto: create-drop
-    h2:
-        console:
-            enabled: true
-            path: /db
-
+            ddl-auto: update
+        show-sql: true
