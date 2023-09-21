@@ -23,12 +23,12 @@ export const fetchProjects = async (sortBy, sortDirection) => {
   const url = new URL(`${constants.baseURL + constants.projects}/client`);
   const params = new URLSearchParams();
 
-  if(sortBy) {
-      params.append('sort', sortBy)
-  }
-  if(sortDirection){
-      params.append('direction', sortDirection)
-  }
+  // if(sortBy) {
+  //     params.append('sort', sortBy)
+  // }
+  // if(sortDirection){
+  //     params.append('direction', sortDirection)
+  // }
   url.search = params.toString();
 
   const headers = new Headers();

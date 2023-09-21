@@ -1,5 +1,5 @@
 export const constants = {
-  baseURL:'http://localhost:8080',
+  baseURL:'https://codenestapi-production.up.railway.app',
   login: '/login',
   projects: '/projects',
   users: '/users',
